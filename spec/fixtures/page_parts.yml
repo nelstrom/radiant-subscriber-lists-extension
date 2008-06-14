@@ -36,23 +36,40 @@ newsletter_subscribe:
   name: subscribe
   content: |
     <r:subscriber_list:if_form_errors>
-      All fields are required
+      Please amend the following:
+      <ul>
+      <r:subscriber_list:form_errors:each>
+        <li><r:error_message /></li>
+      </r:subscriber_list:form_errors:each>
+      </ul>
     </r:subscriber_list:if_form_errors>
-    <form action="/newsletter/subscribe/" method="post"><input type="text" name="subscriber[email]" /><input type="submit" value="Join"/></form>
+    
+    <r:subscriber_list:subscribed_form>
+      <input type="text" name="subscriber[email]" />
+      <input type="submit" value="Join"/>
+    </r:subscriber_list:subscribed_form>
   page_id: 2
 newsletter_subscribed:
   id: 4
   name: subscribed
-  content: The email address EMAIL_ADDRESS has been successfully added to our mailing list. Thanks for your interest. 
+  content: The email address <r:subscriber_list:if_name/> has been successfully added to our mailing list. Thanks for your interest. 
   page_id: 2
 newsletter_unsubscribe:
   id: 7
   name: unsubscribe
   content: |
     <r:subscriber_list:if_form_errors>
-      Sorry, there is no active subscriber with that email address
+      Please amend the following:
+      <ul>
+      <r:subscriber_list:form_errors:each>
+        <li><r:error_message /></li>
+      </r:subscriber_list:form_errors:each>
+      </ul>
     </r:subscriber_list:if_form_errors>
-    <form action="/newsletter/unsubscribe/" method="post"><input type="text" name="subscriber[email]" /><input type="submit" value="Remove me"/></form>
+    <r:subscriber_list:unsubscribed_form>
+      <input type="text" name="subscriber[email]" />
+      <input type="submit" value="Remove me"/>
+    </r:subscriber_list:unsubscribed_form>
   page_id: 2
 newsletter_unsubscribed:
   id: 8
