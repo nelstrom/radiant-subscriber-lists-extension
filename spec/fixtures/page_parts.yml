@@ -52,10 +52,10 @@ newsletter_subscribe:
 newsletter_subscribed:
   id: 4
   name: subscribed
-  content: The email address <r:subscriber_list:if_name/> has been successfully added to our mailing list. Thanks for your interest. 
+  content: The email address <strong><r:subscriber_list:email/></strong> has been successfully added to our mailing list. Thanks for your interest. 
   page_id: 2
 newsletter_unsubscribe:
-  id: 7
+  id: 5
   name: unsubscribe
   content: |
     <r:subscriber_list:if_form_errors>
@@ -72,7 +72,7 @@ newsletter_unsubscribe:
     </r:subscriber_list:unsubscribed_form>
   page_id: 2
 newsletter_unsubscribed:
-  id: 8
+  id: 6
   name: unsubscribed
-  content: You will receive an email with your unsubscription code 
+  content: The email address <strong><r:subscriber_list:email/></strong> has been removed from our mailing list. We won't bother you again.
   page_id: 2

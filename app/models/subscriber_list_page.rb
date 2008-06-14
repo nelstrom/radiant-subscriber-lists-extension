@@ -37,6 +37,12 @@ class SubscriberListPage < Page
         
       elsif @subscriber_list_action == 'unsubscribe'
         # todo: process unsubscription
+        @subscriber = Subscriber.find_active_subscriber_by_subscriber_list_and_email(self, 
+          request.parameters[:subscriber][:email])
+        if @subscriber
+          @subscriber.update_attributes({:unsubscribed_at => Time.now()})
+          @subscriber_list_action = 'unsubscribed'
+        end
       end
     else # request.get?
       if @subscriber_list_action == 'unsubscribe'
