@@ -44,10 +44,13 @@ newsletter_subscribe:
       </ul>
     </r:subscriber_list:if_form_errors>
     
-    <r:subscriber_list:subscribed_form>
-      <input type="text" name="subscriber[email]" />
-      <input type="submit" value="Join"/>
-    </r:subscriber_list:subscribed_form>
+    <r:subscriber_list:subscribe_form>
+      <fieldset>
+        <label for="subscriber_email">email:</label>
+        <r:subscriber_list:input_email/>
+        <input type="submit" value="Join"/>
+      </fieldset>
+    </r:subscriber_list:subscribe_form>
   page_id: 2
 newsletter_subscribed:
   id: 4
@@ -59,17 +62,15 @@ newsletter_unsubscribe:
   name: unsubscribe
   content: |
     <r:subscriber_list:if_form_errors>
-      Please amend the following:
-      <ul>
-      <r:subscriber_list:form_errors:each>
-        <li><r:error_message /></li>
-      </r:subscriber_list:form_errors:each>
-      </ul>
+      Sorry, there is no active subscriber with that email address
     </r:subscriber_list:if_form_errors>
-    <r:subscriber_list:unsubscribed_form>
-      <input type="text" name="subscriber[email]" />
-      <input type="submit" value="Remove me"/>
-    </r:subscriber_list:unsubscribed_form>
+    <r:subscriber_list:unsubscribe_form>
+      <fieldset>
+        <label for="unsubscriber_email">email:</label>
+        <input type="text" name="subscriber[email]" id="unsubscriber_email"/>
+        <input type="submit" value="Remove me"/>
+      </fieldset>
+    </r:subscriber_list:unsubscribe_form>
   page_id: 2
 newsletter_unsubscribed:
   id: 6
