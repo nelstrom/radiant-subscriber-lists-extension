@@ -1,0 +1,61 @@
+home_body:
+  id: 1
+  name: body
+  content: This is the home page
+  page_id: 1
+newsletter_body:
+  id: 2
+  name: body
+  content: |
+    <r:subscriber_list:unless_actions>
+      Subscribe to our newsletter:
+      <r:content part="subscribe" />
+    </r:subscriber_list:unless_actions>
+    
+    <r:subscriber_list:if_actions>
+      <r:subscriber_list:if_action name="subscribe">
+        <r:content part="subscribe" />
+      </r:subscriber_list:if_action>
+      
+      <r:subscriber_list:if_action name="subscribed">
+        <r:content part="subscribed" />
+      </r:subscriber_list:if_action>
+      
+      <r:subscriber_list:if_action name="unsubscribe">
+        <r:content part="unsubscribe" />
+      </r:subscriber_list:if_action>
+      
+      <r:subscriber_list:if_action name="unsubscribed">
+        <r:content part="unsubscribed" />
+      </r:subscriber_list:if_action>
+      
+    </r:subscriber_list:if_actions>
+  page_id: 2
+newsletter_subscribe:
+  id: 3
+  name: subscribe
+  content: |
+    <r:subscriber_list:if_form_errors>
+      All fields are required
+    </r:subscriber_list:if_form_errors>
+    <form action="/newsletter/subscribe/" method="post"><input type="text" name="subscriber[email]" /><input type="submit" value="Join"/></form>
+  page_id: 2
+newsletter_subscribed:
+  id: 4
+  name: subscribed
+  content: The email address EMAIL_ADDRESS has been successfully added to our mailing list. Thanks for your interest. 
+  page_id: 2
+newsletter_unsubscribe:
+  id: 7
+  name: unsubscribe
+  content: |
+    <r:subscriber_list:if_form_errors>
+      Sorry, there is no active subscriber with that email address
+    </r:subscriber_list:if_form_errors>
+    <form action="/newsletter/unsubscribe/" method="post"><input type="text" name="subscriber[email]" /><input type="submit" value="Remove me"/></form>
+  page_id: 2
+newsletter_unsubscribed:
+  id: 8
+  name: unsubscribed
+  content: You will receive an email with your unsubscription code 
+  page_id: 2

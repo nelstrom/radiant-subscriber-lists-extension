@@ -11,11 +11,12 @@ class SubscriberListsExtension < Radiant::Extension
   # end
   
   def activate
-    # admin.tabs.add "Subscriber Lists", "/admin/subscriber_lists", :after => "Layouts", :visibility => [:all]
+    SubscriberListPage
+    admin.tabs.add "Subscribers", "/admin/subscriber_lists", :after => "Layouts", :visibility => [:all]
   end
   
   def deactivate
-    # admin.tabs.remove "Subscriber Lists"
+    admin.tabs.remove "Subscribers"
   end
   
 end
