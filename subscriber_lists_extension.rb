@@ -4,7 +4,7 @@
 class SubscriberListsExtension < Radiant::Extension
   version "1.0"
   description "Allows you to create one or more lists to which your site's visitors may subscribe, by submitting their email address."
-  url "http://yourwebsite.com/subscriber_lists"
+  url "http://github.com/nelstrom/radiant-subscriber-lists-extension/tree/master"
   
   # define_routes do |map|
   #   map.connect 'admin/subscriber_lists/:action', :controller => 'admin/subscriber_lists'
