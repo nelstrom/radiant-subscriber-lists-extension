@@ -23,6 +23,12 @@ namespace :radiant do
           cp file, RAILS_ROOT + path
         end
       end
+      
+      
+      desc "Launches update and migrate tasks"
+      task :install => [:migrate, :update] do
+      end
+      
     end
   end
 end

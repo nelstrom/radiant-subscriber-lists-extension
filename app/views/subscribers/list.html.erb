@@ -4,7 +4,8 @@
 
 <% if @subscribers and !@subscribers.empty? %>
 <h2>Subscribers</h2>
-<table>
+<p><%= link_to "Export as CSV", :action => :export, :id => @list.id %></p>
+<table class="index">
   <tr>
     <th>email</th>
     <th>name</th>
@@ -25,8 +26,8 @@
 
 <% if @unsubscribers and !@unsubscribers.empty? %>
 <h2>Cancelled subscriptions</h2>
-The following people have cancelled their subscription to this list.
-<table>
+<p>The following people have cancelled their subscription to this list.</p>
+<table class="index">
   <tr>
     <th>email</th>
     <th>name</th>

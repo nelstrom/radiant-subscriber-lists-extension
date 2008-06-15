@@ -1,9 +1,11 @@
 <h1>Subscribers</h1>
 
-<table>
+<table class="index">
   <thead>
     <th>Subscriber List</th>
     <th>No. of Subscribers</th>
+    <th></th>
+    <th>Export</th>
   </thead>
 
 <tbody>
@@ -12,6 +14,7 @@
   <td><a href="<%= url_for :action => "list", :id => list.id %>"><span class="title"><%= list.title %></span></a></td>
   <td><%= Subscriber.count_active_subscribers(list) %></td>
   <td><%= link_to "Edit page", page_edit_path(:id => list.id) %></td>
+  <td><%= link_to "Export", :action => "export", :id => list.id %></td>
   </tr>
 <%- end -%>
 </tbody>
