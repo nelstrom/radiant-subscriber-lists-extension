@@ -40,3 +40,35 @@ Create a subscriber list page by running the following task:
     rake radiant:extensions:subscriber_lists:page:new
 
 This will create a subscriber list called "Newsletter", with all the necessary page parts. 
+
+
+If you want to have a registration form present on pages besides the "Subscription List" page itself, the following would make a good snippet for, say, a sidebar:
+
+    <r:unless_url matches="^/newsletter/?.*$">
+      <div id="enews">
+        <h2>Mailing List</h2>
+        <p>Receive updates by email</p>
+        <form action="/newsletter/subscribe/" method="post">
+          <fieldset>
+            <input type="text" name="subscriber[email]" class="text"/>
+            <input type="submit" value="Join" id="enews-submit"/>
+          </fieldset>
+        </form>
+      </div>
+    </r:unless_url>
+
+The <r:unless_url> tag would ensure that this would not display in the sidebar when you are on the "/newsletter" page itself.
+
+
+Cancelling a subscription
+-------------------------
+
+It is advised that you make it easy for your subscribers to remove themselves from a mailing list. Each time you send an email, you should provide a link for the user to unsubscribe, e.g.: http://localhost:3000/newsletter/unsubscribe
+
+If you are using 'Mail Merge', or something similar, to insert customised text into individual emails, you might want to consider adding the email address to the link as a parameter, as follows:
+
+    http://localhost:3000/newsletter/unsubscribe?subscriber[email]=<email.of.recipient@example.com>
+
+When the user clicks the link, the form will be prepopulated with their email address, saving them from having to type it. 
+
+(Note that for this to work, you should use the <r:subscriber_list:input_email /> tag provided, rather than using the HTML tag: <input type="text" name="subscriber[email]" id="subscriber_email"/>)
