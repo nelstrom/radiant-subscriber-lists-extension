@@ -1,0 +1,44 @@
+<h1><%= @list.title %></h1>
+<p>Back to <%= link_to "subscriber lists", :action => "index" %></p>
+<p><%= link_to "Edit", page_edit_path(:id => @list.id) %> the page for this subscriber list</p>
+
+<% if @subscribers and !@subscribers.empty? %>
+<h2>Subscribers</h2>
+<table>
+  <tr>
+    <th>email</th>
+    <th>name</th>
+    <th>Subscribed on</th>
+  </tr>
+  <%- @subscribers.each do |subscriber| -%>
+  <tr>
+    <td><%= subscriber.email %></td>
+    <td><%= subscriber.name.blank? ? "-" : subscriber.name %></td>
+    <td><%= subscriber.subscribed_at.strftime("%d %b, %Y") %></td>
+  </tr>
+  <%- end -%>
+</table>
+<%- else -%>
+<p>This list has no subscribers at present.</p>
+<%- end -%>
+
+
+<% if @unsubscribers and !@unsubscribers.empty? %>
+<h2>Cancelled subscriptions</h2>
+The following people have cancelled their subscription to this list.
+<table>
+  <tr>
+    <th>email</th>
+    <th>name</th>
+    <th>Cancelled on</th>
+  </tr>
+  <%- @unsubscribers.each do |unsubscriber| -%>
+  <tr>
+    <td><%= unsubscriber.email %></td>
+    <td><%= unsubscriber.name.blank? ? "-" : unsubscriber.name %></td>
+    <td><%= unsubscriber.subscribed_at.strftime("%d %b, %Y") %></td>
+  </tr>
+  <%- end -%>
+</table>
+<%- end -%>
+

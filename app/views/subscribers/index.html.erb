@@ -1,3 +1,18 @@
 <h1>Subscribers</h1>
 
-Hello <%= @hello %>
+<table>
+  <thead>
+    <th>Subscriber List</th>
+    <th>No. of Subscribers</th>
+  </thead>
+
+<tbody>
+<% @lists.each do |list| %>
+  <tr>
+  <td><a href="<%= url_for :action => "list", :id => list.id %>"><span class="title"><%= list.title %></span></a></td>
+  <td><%= Subscriber.count_active_subscribers(list) %></td>
+  <td><%= link_to "Edit page", page_edit_path(:id => list.id) %></td>
+  </tr>
+<%- end -%>
+</tbody>
+</table>

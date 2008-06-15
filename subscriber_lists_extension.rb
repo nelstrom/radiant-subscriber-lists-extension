@@ -8,6 +8,7 @@ class SubscriberListsExtension < Radiant::Extension
   
   define_routes do |map|
     map.connect 'admin/subscribers/:action', :controller => 'subscribers'
+    map.connect 'admin/subscribers/:action/:id', :controller => 'subscribers'
   end
   
   def activate
