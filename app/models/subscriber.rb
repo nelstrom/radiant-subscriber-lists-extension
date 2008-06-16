@@ -17,7 +17,7 @@ class Subscriber < ActiveRecord::Base
     end
     
     def count_active_subscribers(subscriber_list)
-      count(:conditions => ["unsubscribed_at IS ? AND subscriber_list_id = ?", nil, subscriber_list.id])
+      count(:conditions => {:unsubscribed_at => nil, :subscriber_list_id => subscriber_list.id })
     end
     
     def find_active_subscribers_by_subscriber_list(subscriber_list)
