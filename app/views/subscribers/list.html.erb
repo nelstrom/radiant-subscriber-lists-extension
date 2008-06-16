@@ -4,18 +4,23 @@
 
 <% if @subscribers and !@subscribers.empty? %>
 <h2>Subscribers</h2>
+<p><%= link_to "Add a new subscriber", :action => :new, :subscriber_list_id => @list.id %></p>
 <p><%= link_to "Export as CSV", :action => :export, :id => @list.id %></p>
 <table class="index">
   <tr>
+    <th>#id</th>
     <th>email</th>
     <th>name</th>
     <th>Subscribed on</th>
+    <th></th>
   </tr>
   <%- @subscribers.each do |subscriber| -%>
   <tr>
-    <td><%= subscriber.email %></td>
+    <td><%= subscriber.id %></td>
+    <td><%= link_to subscriber.email, :action => "edit", :id => subscriber.id, :subscriber_list_id => @list.id %></td>
     <td><%= subscriber.name.blank? ? "-" : subscriber.name %></td>
     <td><%= subscriber.subscribed_at.strftime("%d %b, %Y") %></td>
+    <td><%= link_to "Unsubscribe", :action => "unsubscribe", :id => subscriber.id %></td>
   </tr>
   <%- end -%>
 </table>
@@ -32,12 +37,16 @@
     <th>email</th>
     <th>name</th>
     <th>Cancelled on</th>
+    <th></th>
+    <th></th>
   </tr>
   <%- @unsubscribers.each do |unsubscriber| -%>
   <tr>
     <td><%= unsubscriber.email %></td>
     <td><%= unsubscriber.name.blank? ? "-" : unsubscriber.name %></td>
     <td><%= unsubscriber.subscribed_at.strftime("%d %b, %Y") %></td>
+    <td><%= link_to "Resubscribe", :action => "resubscribe", :id => unsubscriber.id %></td>
+    <td><%= link_to "Destroy", :action => "delete_subscriber", :id => unsubscriber.id %></td>
   </tr>
   <%- end -%>
 </table>

@@ -1,0 +1,5 @@
+✓ Add/Edit subscriber actions
+- Break up the subscribers_controller in two:
+  - one to control the subscriber_list
+  - the other for managing subscribers within a list (with nested RESTful routes)
+- Add a "Create new Subscriber list" button on /subscribers/index, which does the equivalent to the task: rake radiant:extensions:subscriber_lists:page:new

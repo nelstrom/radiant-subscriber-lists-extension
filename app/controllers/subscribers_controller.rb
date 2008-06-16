@@ -1,6 +1,8 @@
 class SubscribersController < ApplicationController
   require 'fastercsv'
-
+  
+  before_filter :find_subscriber_list, :only => [:new, :edit, :destroy]
+  
   def index
     @lists = Page.find_all_by_class_name("SubscriberListPage")
   end
@@ -9,6 +11,60 @@ class SubscribersController < ApplicationController
     @list = Page.find(params[:id])
     @subscribers = Subscriber.find_active_subscribers_by_subscriber_list(@list)
     @unsubscribers = Subscriber.find_unsubscribers_by_subscriber_list(@list)
+  end
+  
+  def new
+    @subscriber = Subscriber.new
+  end
+
+  def create
+    params[:subscriber][:subscribed_at] = Time.now()
+    @subscriber = Subscriber.new(params[:subscriber])
+    if @subscriber.save
+      flash[:notice] = 'Subscriber has been saved correctly.'
+      redirect_to :action => 'list', :id => @subscriber.subscriber_list_id
+    else
+      flash[:error] = 'Validation errors occurred while processing this form. Please take a moment to review the form and correct any input errors before continuing.'
+      render :action => 'new'
+    end
+  end
+
+  def edit
+    @subscriber = Subscriber.find(params[:id])
+  end
+
+  def update
+    @subscriber = Subscriber.find(params[:id])
+    @subscriber_list = Page.find(params[:subscriber][:subscriber_list_id])
+    if @subscriber.update_attributes(params[:subscriber])
+      flash[:notice] = 'Subscriber has been updated correctly.'
+      redirect_to :action => 'list', :id => @subscriber.subscriber_list_id
+    else
+      flash[:error] = 'Validation errors occurred while processing this form. Please take a moment to review the form and correct any input errors before continuing.'
+      render :action => 'edit'
+    end
+  end
+  
+  
+  def unsubscribe
+    if @subscriber = Subscriber.find(params[:id])
+      @subscriber.update_attributes({:unsubscribed_at => Time.now})
+      redirect_to :action => :list, :id => @subscriber.subscriber_list_id
+    end
+  end
+  
+  def resubscribe
+    if @subscriber = Subscriber.find(params[:id])
+      @subscriber.update_attributes({:unsubscribed_at => nil})
+      redirect_to :action => :list, :id => @subscriber.subscriber_list_id
+    end
+  end
+  
+  def delete_subscriber
+    if @subscriber = Subscriber.find(params[:id])
+      @subscriber.destroy
+      redirect_to :action => :list, :id => @subscriber.subscriber_list_id
+    end
   end
 
   def export
@@ -44,6 +100,13 @@ class SubscribersController < ApplicationController
       yield csv
     }
   end
-
+  
+  
+  def find_subscriber_list
+    @subscriber_list = Page.find(params[:subscriber_list_id])
+    redirect_to('/admin/') and return if @subscriber_list.class_name != 'SubscriberListPage'
+  rescue ActiveRecord::RecordNotFound  
+    redirect_to('/admin')
+  end
 
 end
