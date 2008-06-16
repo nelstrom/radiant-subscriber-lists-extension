@@ -27,8 +27,12 @@ class SubscriberListPage < Page
       if @subscriber_list_action == 'subscribe'
         parameters = request.parameters[:subscriber] || {}
         parameters[:subscriber_list_id] = self.id
-        parameters[:subscribed_at] = Time.now
-        @subscriber = Subscriber.new
+        parameters[:unsubscribed_at] = nil
+        @subscriber = Subscriber.find_by_email_and_subscriber_list_id(parameters[:email], self.id)
+        unless @subscriber
+          parameters[:subscribed_at] = Time.now
+          @subscriber = Subscriber.new
+        end
         if @subscriber.update_attributes(parameters)
           @subscriber_list_action = 'subscribed'
         else

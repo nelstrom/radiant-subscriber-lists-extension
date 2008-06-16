@@ -1,6 +1,6 @@
 class Subscriber < ActiveRecord::Base
   validates_presence_of :email
-  # validates_uniqueness_of :email
+  # validates_uniqueness_of :email, :message => "has already been signed up."
   validates_presence_of :subscriber_list_id
 
   #TODO: add validation to subscriber_list. Does the subscriber_list page exists?
