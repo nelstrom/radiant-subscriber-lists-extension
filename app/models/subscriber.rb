@@ -13,7 +13,11 @@ class Subscriber < ActiveRecord::Base
     end
     
     def find_active_subscribers
-      find(:all, :conditions => ["unsubscribed_at IS ?", nil])
+      find(:all, :conditions => {:unsubscribed_at => nil})
+    end
+    
+    def find_inactive_subscribers
+      find(:all, :conditions => {:unsubscribed_at => !nil})
     end
     
     def count_active_subscribers(subscriber_list)
@@ -22,13 +26,13 @@ class Subscriber < ActiveRecord::Base
     
     def find_active_subscribers_by_subscriber_list(subscriber_list)
       find(:all, 
-            :conditions => ["unsubscribed_at IS ? AND subscriber_list_id = ?", nil, subscriber_list.id],
+            :conditions => ["unsubscribed_at IS NULL AND subscriber_list_id = ?", subscriber_list.id],
             :order => "subscribed_at DESC")
     end
     
     def find_unsubscribers_by_subscriber_list(subscriber_list)
       find(:all, 
-            :conditions => ["unsubscribed_at IS NOT ? AND subscriber_list_id = ?", nil, subscriber_list.id],
+            :conditions => ["unsubscribed_at IS NOT NULL AND subscriber_list_id = ?", subscriber_list.id],
             :order => "unsubscribed_at DESC")
     end
   end
