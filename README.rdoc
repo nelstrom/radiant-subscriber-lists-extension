@@ -1,5 +1,5 @@
-Subscriber Lists
-================
+= Subscriber Lists
+
 
   Created by: Andrew Neil
   Version: 1.0
@@ -7,10 +7,9 @@ Subscriber Lists
 
 This is an extension for Radiant CMS, which lets you create subscriber lists, e.g. for subscription to a newsletter. 
 
-This is essentially a stripped down version of Andrea Franz excellent [Newsletter extension](http://github.com/pilu/radiant-newsletter/tree/master). The subscriber lists extension does not require you to configure ActionMailer to send emails, so if your unsure how to do that, you may prefer to use this instead of the Newsletter extension.
+This is essentially a stripped down version of Andrea Franz excellent {Newsletter extension}[http://github.com/pilu/radiant-newsletter/tree/master]. The subscriber lists extension does not require you to configure ActionMailer to send emails, so if your unsure how to do that, you may prefer to use this instead of the Newsletter extension.
 
-Installation
-------------
+== Installation
 
 This extension uses the `fastercsv` gem, so if you don't already have it installed, run:
 
@@ -32,8 +31,8 @@ Once you have the extension added to your radiant project, you can run the rake 
     # and/or
     rake RAILS_ENV="production" radiant:extensions:subscriber_lists:install
 
-Usage
------
+== Usage
+
 
 Create a subscriber list page by running the following task:
 
@@ -60,8 +59,7 @@ If you want to have a registration form present on pages besides the "Subscripti
 The <r:unless_url> tag would ensure that this would not display in the sidebar when you are on the "/newsletter" page itself.
 
 
-Cancelling a subscription
--------------------------
+== Cancelling a subscription
 
 It is advised that you make it easy for your subscribers to remove themselves from a mailing list. Each time you send an email, you should provide a link for the user to unsubscribe, e.g.: http://localhost:3000/newsletter/unsubscribe
 
