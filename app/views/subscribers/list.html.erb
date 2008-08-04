@@ -5,7 +5,11 @@
 <% if @subscribers and !@subscribers.empty? %>
 <h2>Subscribers</h2>
 <p><%= link_to "Add a new subscriber", :action => :new, :subscriber_list_id => @list.id %></p>
+<p><%= link_to 'Import subscribers', import_subscribers_path(:list_id => @list.id) %></p>
 <p><%= link_to "Export as CSV", :action => :export, :id => @list.id %></p>
+<div id="just_emails">
+<%= @subscribers.inject([]) {|list,sub| list << sub.email unless sub.unsubscribed_at }.join(", ") %>
+</div><br/>
 <table class="index">
   <tr>
     <th>#id</th>

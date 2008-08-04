@@ -1,0 +1,22 @@
+<h1>Import subscribers</h1>
+  <p>Add a comma separated list of subscribers. One email address per line, in the following format:</p>
+  
+<pre>
+Name,E-mail,Notes
+</pre>
+  
+  <p>Email address will be added regardless of whether Name or Notes are supplied. If no email address is supplied, the line will be skipped. If an email address is already in the database, it will not be added again, so don't worry about uploading the same email address more than once.</p>
+  
+<% form_tag :action => 'import' do -%>
+  <div class="form-area">
+    <p class="title">
+      <label for="subscribers">Subscribers</label>
+      <%= text_area_tag :subscribers, params[:subscribers], :rows => 25, :style => "font-size:13px;", :class => 'textbox'  %>
+      <%= hidden_field_tag :list_id, params[:list_id] %>
+    </p>      
+  </div>  
+  <p class="buttons">
+    <%= submit_tag 'Import subscriber', :class => 'button' %>
+    or <%= link_to 'Cancel', :action => 'index' %>
+  </p>
+<% end -%>

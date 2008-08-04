@@ -78,6 +78,37 @@ class SubscribersController < ApplicationController
     end
   end
 
+  def import
+    @list = Page.find(params[:list_id])
+    if request.post?
+      @bad_subscribers, @imported_count = [], 0
+      subscribers = params[:subscribers] #.to_s.split(/[,\n]/)
+      subscribers.each do |subscriber|
+        subscriber.strip!
+        puts subscriber
+        next if subscriber.blank?
+        name, email, notes = subscriber.split(",")
+        next if name =~ /name/i && email =~ /e-?mail/i
+        next if Subscriber.find_by_email(email)
+        subscriber = Subscriber.new(
+          :name => name,
+          :email => email,
+          :subscriber_list_id => @list.id,
+          :subscribed_at => Time.now()
+          )
+        if subscriber.save
+          @imported_count += 1
+        else
+          @bad_subscribers << {:email => subscriber.email, :error => subscriber.errors.full_messages.join(',') }
+        end
+      end
+      render :action => 'imported'
+    end
+  end
+  
+  def imported
+  end
+  
   private
 
   def stream_csv

@@ -7,6 +7,7 @@ class SubscriberListsExtension < Radiant::Extension
   url "http://github.com/nelstrom/radiant-subscriber-lists-extension/tree/master"
   
   define_routes do |map|
+    map.import_subscribers 'admin/subscribers/import/list/:list_id', :controller => 'subscribers', :action => 'import'
     map.connect 'admin/subscribers/:action', :controller => 'subscribers'
     map.connect 'admin/subscribers/:action/:id', :controller => 'subscribers'
   end
